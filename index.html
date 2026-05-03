@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sriram Kothapalli | QA Engineer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0A0A0F;
+    --surface: #111118;
+    --card: #161620;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00E5A0;
+    --accent2: #7B61FF;
+    --text: #F0EFE8;
+    --muted: #7A7A8A;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+  }
+  .nav-logo { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; font-family: var(--font-mono); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+  }
+  .hero-glow {
+    position: absolute; top: 15%; right: 5%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: 10%; left: 0%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(123,97,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-name {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-title {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .stat-item {}
+  .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--muted); font-family: var(--font-mono); margin-top: 4px; }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent);
+    color: #0A0A0F;
+    padding: 0.9rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,160,0.3); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.9rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); background: rgba(0,229,160,0.05); }
+
+  /* ── SECTION ── */
+  section { padding: 6rem 4rem; position: relative; }
+  .section-header { margin-bottom: 3rem; }
+  .section-label { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .skill-card {
+    background: var(--card);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+  .skill-card:hover { background: #1a1a27; }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .skill-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+  .skill-tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent); background: rgba(0,229,160,0.07); padding: 3px 8px; border-radius: 2px; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .project-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-4px); }
+  .project-client { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .project-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; }
+  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .project-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .metric-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 0.75rem; border-radius: 4px; }
+  .metric-val { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+  .metric-desc { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-tag { font-family: var(--font-mono); font-size: 11px; color: var(--muted); background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .achievement-item {
+    background: var(--card);
+    padding: 1.75rem 2rem;
+    display: flex; align-items: flex-start; gap: 2rem;
+    transition: background 0.2s;
+  }
+  .achievement-item:hover { background: #1a1a27; }
+  .ach-num { font-size: 3rem; font-weight: 800; color: rgba(0,229,160,0.15); font-family: var(--font-mono); min-width: 60px; line-height: 1; }
+  .ach-text { font-size: 1rem; font-weight: 500; line-height: 1.6; }
+  .ach-text span { color: var(--accent); font-weight: 700; }
+
+  /* ── TOOLS ── */
+  .tools-marquee { overflow: hidden; position: relative; padding: 2rem 0; }
+  .tools-marquee::before, .tools-marquee::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
+  }
+  .tools-marquee::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+  .tools-marquee::after { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+  .tools-track { display: flex; gap: 1rem; animation: marquee 20s linear infinite; width: max-content; }
+  .tool-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    padding: 0.6rem 1.2rem; border-radius: 100px; white-space: nowrap;
+    font-size: 13px; font-weight: 500; font-family: var(--font-mono);
+  }
+  .tool-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .contact-info { }
+  .contact-big { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+  .contact-big span { color: var(--accent); }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--card); border: 1px solid var(--border);
+    padding: 1rem 1.5rem; border-radius: 6px;
+    text-decoration: none; color: var(--text);
+    font-size: 14px; font-family: var(--font-mono);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); background: rgba(0,229,160,0.05); }
+  .contact-link-icon { font-size: 1.2rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0 4rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-stats { gap: 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .divider { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SK // QA</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <p class="hero-label">// QA Engineer · 4.4 Years Experience</p>
+  <h1 class="hero-name">Sriram<br><span>Kothapalli</span></h1>
+  <p class="hero-title">Manual · Automation · Performance · API · IoT Testing<br>Pharma & Life Sciences domain expert working with US-based clients.</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">2000+</div>
+      <div class="stat-label">Test cases automated</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">45%</div>
+      <div class="stat-label">Manual effort reduced</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98%+</div>
+      <div class="stat-label">Test coverage maintained</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">Critical bugs caught</div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="mailto:sriramkothapalli@outlook.in" class="btn-primary">↗ Hire me</a>
+    <a href="https://linkedin.com/in/sriramkothapalli" target="_blank" class="btn-outline">LinkedIn Profile</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div class="section-label">// 01 — Expertise</div>
+    <h2 class="section-title">What I do</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-title">Test Automation</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Building maintainable automation frameworks with Playwright and Cypress using POM and Hybrid patterns.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Playwright</span>
+        <span class="skill-tag">Cypress</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">POM</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔬</div>
+      <div class="skill-title">Manual & Functional Testing</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">End-to-end manual testing including functional, regression, smoke, sanity, integration, UAT and exploratory.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Black-box</span>
+        <span class="skill-tag">Exploratory</span>
+        <span class="skill-tag">Risk-based</span>
+        <span class="skill-tag">UAT</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📈</div>
+      <div class="skill-title">Performance Testing</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Load, stress and spike testing with JMeter. Monitoring system health and bottlenecks via Grafana dashboards.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">JMeter</span>
+        <span class="skill-tag">Grafana</span>
+        <span class="skill-tag">Load Testing</span>
+        <span class="skill-tag">Stress Testing</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-title">API Testing</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">REST API validation — payloads, headers, status codes, response schemas, and end-to-end API workflows.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Postman</span>
+        <span class="skill-tag">REST API</span>
+        <span class="skill-tag">JSON</span>
+        <span class="skill-tag">Status codes</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔌</div>
+      <div class="skill-title">IoT & MQTT Testing</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Device provisioning, telemetry validation, edge gateway testing and real-time data flow verification via MQTT.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">MQTT</span>
+        <span class="skill-tag">IoT</span>
+        <span class="skill-tag">Telemetry</span>
+        <span class="skill-tag">Edge Gateway</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-title">Database & CI/CD</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Backend validation using PostgreSQL queries. Automation integrated with Jenkins pipelines for continuous testing.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">Git</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- TOOLS MARQUEE -->
+<section style="padding: 3rem 0;">
+  <div class="tools-marquee">
+    <div class="tools-track">
+      <div class="tool-pill"><span class="tool-dot"></span>Playwright</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Cypress</div>
+      <div class="tool-pill"><span class="tool-dot"></span>JMeter</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Grafana</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Postman</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Jenkins</div>
+      <div class="tool-pill"><span class="tool-dot"></span>JIRA</div>
+      <div class="tool-pill"><span class="tool-dot"></span>PostgreSQL</div>
+      <div class="tool-pill"><span class="tool-dot"></span>MQTT</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Git / GitHub</div>
+      <div class="tool-pill"><span class="tool-dot"></span>JavaScript</div>
+      <div class="tool-pill"><span class="tool-dot"></span>TypeScript</div>
+      <!-- duplicate for seamless loop -->
+      <div class="tool-pill"><span class="tool-dot"></span>Playwright</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Cypress</div>
+      <div class="tool-pill"><span class="tool-dot"></span>JMeter</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Grafana</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Postman</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Jenkins</div>
+      <div class="tool-pill"><span class="tool-dot"></span>JIRA</div>
+      <div class="tool-pill"><span class="tool-dot"></span>PostgreSQL</div>
+      <div class="tool-pill"><span class="tool-dot"></span>MQTT</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Git / GitHub</div>
+      <div class="tool-pill"><span class="tool-dot"></span>JavaScript</div>
+      <div class="tool-pill"><span class="tool-dot"></span>TypeScript</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <div class="section-label">// 02 — Work</div>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:2rem;font-family:var(--font-mono);">Buildbot Technologies Pvt. Ltd., Vijayawada · Jan 2022 – Present</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-client">Merck, USA</div>
+      <div class="project-name">Connected Plant</div>
+      <div class="project-desc">IoT platform to manage laboratory instruments, equipment, and analytical data in pharma environments. End-to-end QA covering manual, automation, performance, API and IoT layers.</div>
+      <div class="project-metrics">
+        <div class="metric-box"><div class="metric-val">1200+</div><div class="metric-desc">test cases written</div></div>
+        <div class="metric-box"><div class="metric-val">3 hrs</div><div class="metric-desc">regression cycle (from 2 days)</div></div>
+        <div class="metric-box"><div class="metric-val">30+</div><div class="metric-desc">critical bugs caught</div></div>
+        <div class="metric-box"><div class="metric-val">100%</div><div class="metric-desc">RTM coverage maintained</div></div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Playwright</span><span class="stack-tag">Cypress</span><span class="stack-tag">JMeter</span><span class="stack-tag">Postman</span><span class="stack-tag">MQTT</span><span class="stack-tag">Jenkins</span><span class="stack-tag">PostgreSQL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-client">Phizzle, USA</div>
+      <div class="project-name">Digital Air Systems</div>
+      <div class="project-desc">Cloud-based IoT SaaS platform to digitize and automate scientific workflows with real-time device data. Responsible for full QA cycle including dashboard, device management, and IoT data validation.</div>
+      <div class="project-metrics">
+        <div class="metric-box"><div class="metric-val">900+</div><div class="metric-desc">manual + automated cases</div></div>
+        <div class="metric-box"><div class="metric-val">3-layer</div><div class="metric-desc">UI + API + DB testing</div></div>
+        <div class="metric-box"><div class="metric-val">CI/CD</div><div class="metric-desc">Jenkins integration</div></div>
+        <div class="metric-box"><div class="metric-val">Agile</div><div class="metric-desc">sprint-based delivery</div></div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Playwright</span><span class="stack-tag">Postman</span><span class="stack-tag">JMeter</span><span class="stack-tag">Grafana</span><span class="stack-tag">MQTT</span><span class="stack-tag">JIRA</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-client">Phizzle, USA</div>
+      <div class="project-name">Edge Manager</div>
+      <div class="project-desc">Web application for provisioning and managing IoT edge gateway devices and data communication. Validated real-time MQTT telemetry flow, device config, and multi-environment regression.</div>
+      <div class="project-metrics">
+        <div class="metric-box"><div class="metric-val">MQTT</div><div class="metric-desc">telemetry validation</div></div>
+        <div class="metric-box"><div class="metric-val">Multi-env</div><div class="metric-desc">parallel test execution</div></div>
+        <div class="metric-box"><div class="metric-val">E2E</div><div class="metric-desc">regression + integration</div></div>
+        <div class="metric-box"><div class="metric-val">Full</div><div class="metric-desc">defect lifecycle in JIRA</div></div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Playwright</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Jenkins</span><span class="stack-tag">MQTT</span><span class="stack-tag">JMeter</span><span class="stack-tag">Grafana</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header">
+    <div class="section-label">// 03 — Impact</div>
+    <h2 class="section-title">Key achievements</h2>
+  </div>
+  <div class="achievements-list">
+    <div class="achievement-item">
+      <div class="ach-num">01</div>
+      <div class="ach-text">Automated <span>2,000+ test cases</span> across 3 projects using Playwright and Cypress, reducing manual testing effort by <span>45%</span>.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="ach-num">02</div>
+      <div class="ach-text">Reduced regression execution time from <span>2 days to 3 hours</span> by integrating the test suite with a Jenkins CI/CD pipeline.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="ach-num">03</div>
+      <div class="ach-text">Identified and reported <span>30+ critical defects</span> through risk-based and exploratory testing before production release.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="ach-num">04</div>
+      <div class="ach-text">Built JMeter performance scripts and <span>Grafana dashboards</span> to identify system bottlenecks under load and stress conditions.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="ach-num">05</div>
+      <div class="ach-text">Validated <span>MQTT-based IoT device communication</span> and real-time telemetry data for pharma lab instrument platforms.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="ach-num">06</div>
+      <div class="ach-text">Maintained <span>98%+ functional test coverage</span> across all sprint releases for US-based pharma clients over 4+ years.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label">// 04 — Connect</div>
+      <h2 class="contact-big">Let's work<br><span>together</span></h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;max-width:420px;">Open to QA Engineer roles in automation, performance, or IoT testing. Based in Vijayawada, Andhra Pradesh — available for remote and hybrid opportunities.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:sriramkothapalli@outlook.in" class="contact-link">
+        <span class="contact-link-icon">✉</span>
+        sriramkothapalli@outlook.in
+      </a>
+      <a href="tel:+919640405249" class="contact-link">
+        <span class="contact-link-icon">☏</span>
+        +91 96404 05249
+      </a>
+      <a href="https://linkedin.com/in/sriramkothapalli" target="_blank" class="contact-link">
+        <span class="contact-link-icon">in</span>
+        linkedin.com/in/sriramkothapalli
+      </a>
+      <a href="https://github.com/sriramkothapalli" target="_blank" class="contact-link">
+        <span class="contact-link-icon">⌥</span>
+        github.com/sriramkothapalli
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Sriram Kothapalli</span>
+  <span>QA Engineer · Vijayawada, India</span>
+</footer>
+
+</body>
+</html>
