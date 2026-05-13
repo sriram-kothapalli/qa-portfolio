@@ -1,630 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sriram Kothapalli | QA Automation Engineer Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+<meta name="description" content="QA Automation Engineer with 4+ years in Selenium Java, Playwright, Cypress, JMeter, API & IoT testing for US pharma clients. Immediate Joiner."/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0F;--surface:#111118;--card:#161620;--border:rgba(255,255,255,0.07);
+  --accent:#00E5A0;--accent2:#7B61FF;--text:#F0EFE8;--muted:#7A7A8A;
+  --navy:#1B3A5C;--blue:#2563A8;
+  --ff:'Syne',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff);overflow-x:hidden}
 
-  :root {
-    --bg: #0A0A0F;
-    --surface: #111118;
-    --card: #161620;
-    --border: rgba(255,255,255,0.07);
-    --accent: #00E5A0;
-    --accent2: #7B61FF;
-    --text: #F0EFE8;
-    --muted: #7A7A8A;
-    --font-display: 'Syne', sans-serif;
-    --font-mono: 'DM Mono', monospace;
-  }
+/* NOISE */
+body::before{content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4}
 
-  html { scroll-behavior: smooth; }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 4rem;background:rgba(10,10,15,.9);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--mono);font-size:13px;font-weight:700;
+  color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;
+  font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.badge{font-family:var(--mono);font-size:10px;font-weight:700;
+  background:var(--accent);color:#0A0A0F;padding:4px 12px;
+  border-radius:100px;letter-spacing:.1em;text-transform:uppercase;
+  animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.4)}60%{box-shadow:0 0 0 8px rgba(0,229,160,0)}}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-display);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;padding:8rem 4rem 4rem;position:relative}
+.glow1{position:absolute;top:10%;right:0;width:700px;height:700px;
+  background:radial-gradient(circle,rgba(0,229,160,.07) 0%,transparent 65%);pointer-events:none}
+.glow2{position:absolute;bottom:5%;left:-5%;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(123,97,255,.06) 0%,transparent 65%);pointer-events:none}
+.hero-label{font-family:var(--mono);font-size:12px;color:var(--accent);
+  letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-name{font-size:clamp(3rem,9vw,7.5rem);font-weight:800;line-height:.92;
+  letter-spacing:-.03em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-name span{color:var(--accent)}
+.hero-sub{font-size:clamp(.95rem,1.8vw,1.2rem);color:var(--muted);
+  max-width:600px;line-height:1.75;margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-sub strong{color:var(--text);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:3rem;margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .8s .8s forwards}
+.stat-n{font-size:2.4rem;font-weight:800;color:var(--accent);line-height:1}
+.stat-l{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+.cta{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1s forwards}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);
+  color:#0A0A0F;padding:.85rem 2rem;border-radius:4px;text-decoration:none;
+  font-weight:700;font-size:14px;letter-spacing:.04em;
+  transition:transform .15s,box-shadow .15s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,229,160,.3)}
+.btn-o{display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);color:var(--text);padding:.85rem 2rem;
+  border-radius:4px;text-decoration:none;font-weight:500;font-size:14px;
+  letter-spacing:.04em;transition:border-color .2s,background .2s}
+.btn-o:hover{border-color:var(--accent);background:rgba(0,229,160,.05)}
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 0; opacity: 0.5;
-  }
+/* SECTIONS */
+section{padding:5rem 4rem;position:relative}
+.sh{margin-bottom:2.5rem}
+.sl{font-family:var(--mono);font-size:11px;color:var(--accent);
+  letter-spacing:.18em;text-transform:uppercase;margin-bottom:.6rem}
+.st{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.03em}
+hr.div{border:none;border-top:1px solid var(--border);margin:0 4rem}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 4rem;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    z-index: 100;
-  }
-  .nav-logo { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; font-family: var(--font-mono); }
-  .nav-links { display: flex; gap: 2rem; align-items: center; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text); }
-  .nav-badge {
-    font-family: var(--font-mono); font-size: 10px; font-weight: 700;
-    background: var(--accent); color: #0A0A0F;
-    padding: 3px 10px; border-radius: 100px; letter-spacing: 0.08em;
-    text-transform: uppercase; animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,160,0.4); }
-    50% { box-shadow: 0 0 0 6px rgba(0,229,160,0); }
-  }
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1px;
+  background:var(--border);border:1px solid var(--border)}
+.sk-card{background:var(--card);padding:1.75rem;transition:background .2s}
+.sk-card:hover{background:#1a1a27}
+.sk-icon{font-size:1.4rem;margin-bottom:.75rem}
+.sk-title{font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.sk-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-family:var(--mono);font-size:10px;color:var(--accent);
+  background:rgba(0,229,160,.07);padding:3px 8px;border-radius:2px}
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 4rem 4rem;
-    position: relative;
-  }
-  .hero-glow {
-    position: absolute; top: 15%; right: 5%;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-glow2 {
-    position: absolute; bottom: 10%; left: 0%;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(123,97,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-label {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero-name {
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-  .hero-name span { color: var(--accent); }
-  .hero-title {
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: var(--muted);
-    font-weight: 400;
-    max-width: 580px;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
-  .hero-stats {
-    display: flex; gap: 3rem; flex-wrap: wrap;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
-  .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
-  .stat-label { font-size: 12px; color: var(--muted); font-family: var(--font-mono); margin-top: 4px; }
-  .hero-cta {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s 1s forwards;
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: #0A0A0F;
-    padding: 0.9rem 2rem; border-radius: 4px;
-    text-decoration: none; font-weight: 700; font-size: 14px;
-    letter-spacing: 0.05em; transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,160,0.3); }
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 8px;
-    border: 1px solid var(--border); color: var(--text);
-    padding: 0.9rem 2rem; border-radius: 4px;
-    text-decoration: none; font-weight: 500; font-size: 14px;
-    letter-spacing: 0.05em; transition: border-color 0.2s, background 0.2s;
-  }
-  .btn-outline:hover { border-color: var(--accent); background: rgba(0,229,160,0.05); }
+/* TOOLS MARQUEE */
+.marquee-wrap{overflow:hidden;position:relative;padding:1.5rem 0}
+.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;
+  top:0;bottom:0;width:120px;z-index:2}
+.marquee-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.marquee-wrap::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.marquee-track{display:flex;gap:.75rem;animation:marquee 30s linear infinite;width:max-content}
+.pill{display:flex;align-items:center;gap:7px;background:var(--card);
+  border:1px solid var(--border);padding:.5rem 1.1rem;border-radius:100px;
+  white-space:nowrap;font-family:var(--mono);font-size:12px;font-weight:500}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
 
-  /* SECTION */
-  section { padding: 6rem 4rem; position: relative; }
-  .section-header { margin-bottom: 3rem; }
-  .section-label { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
-  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; }
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:1.75rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.proj-card:hover{border-color:rgba(0,229,160,.3);transform:translateY(-4px)}
+.pc{font-family:var(--mono);font-size:10px;color:var(--accent);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+.pn{font-size:1.2rem;font-weight:800;margin-bottom:.6rem}
+.pd{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.pm{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem}
+.mb{background:rgba(255,255,255,.03);border:1px solid var(--border);
+  padding:.65rem;border-radius:4px}
+.mv{font-size:1.25rem;font-weight:800;color:var(--accent)}
+.md{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px}
+.stack{display:flex;flex-wrap:wrap;gap:5px}
+.stag{font-family:var(--mono);font-size:10px;color:var(--muted);
+  background:rgba(255,255,255,.04);padding:3px 7px;border-radius:2px;
+  border:1px solid var(--border)}
 
-  /* SKILLS GRID */
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-  .skill-card { background: var(--card); padding: 2rem; transition: background 0.2s; }
-  .skill-card:hover { background: #1a1a27; }
-  .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
-  .skill-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
-  .skill-tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent); background: rgba(0,229,160,0.07); padding: 3px 8px; border-radius: 2px; }
+/* ACHIEVEMENTS */
+.ach-list{display:flex;flex-direction:column;gap:1px;
+  background:var(--border);border:1px solid var(--border)}
+.ach-item{background:var(--card);padding:1.5rem 2rem;
+  display:flex;align-items:flex-start;gap:1.75rem;transition:background .2s}
+.ach-item:hover{background:#1a1a27}
+.ach-n{font-size:2.5rem;font-weight:800;color:rgba(0,229,160,.12);
+  font-family:var(--mono);min-width:52px;line-height:1}
+.ach-t{font-size:.95rem;font-weight:500;line-height:1.65}
+.ach-t span{color:var(--accent);font-weight:700}
 
-  /* PROJECTS */
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
-  .project-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; padding: 2rem;
-    position: relative; overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .project-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-  }
-  .project-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-4px); }
-  .project-client { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .project-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; }
-  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-  .project-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-  .metric-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 0.75rem; border-radius: 4px; }
-  .metric-val { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
-  .metric-desc { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
-  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
-  .stack-tag { font-family: var(--font-mono); font-size: 11px; color: var(--muted); background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); }
+/* CERTIFICATIONS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:1.4rem;display:flex;flex-direction:column;gap:.4rem;
+  transition:border-color .2s,transform .2s}
+.cert-card:hover{border-color:rgba(0,229,160,.35);transform:translateY(-2px)}
+.cert-icon{font-size:1.4rem}
+.cert-name{font-size:13px;font-weight:700;line-height:1.4}
+.cert-src{font-family:var(--mono);font-size:10px;color:var(--accent)}
 
-  /* ACHIEVEMENTS */
-  .achievements-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-  .achievement-item {
-    background: var(--card); padding: 1.75rem 2rem;
-    display: flex; align-items: flex-start; gap: 2rem;
-    transition: background 0.2s;
-  }
-  .achievement-item:hover { background: #1a1a27; }
-  .ach-num { font-size: 3rem; font-weight: 800; color: rgba(0,229,160,0.15); font-family: var(--font-mono); min-width: 60px; line-height: 1; }
-  .ach-text { font-size: 1rem; font-weight: 500; line-height: 1.6; }
-  .ach-text span { color: var(--accent); font-weight: 700; }
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.cb{font-size:clamp(1.8rem,5vw,3.8rem);font-weight:800;line-height:1.1;
+  letter-spacing:-.03em;margin-bottom:1.25rem}
+.cb span{color:var(--accent)}
+.contact-links{display:flex;flex-direction:column;gap:.75rem}
+.cl{display:flex;align-items:center;gap:.9rem;background:var(--card);
+  border:1px solid var(--border);padding:.9rem 1.4rem;border-radius:6px;
+  text-decoration:none;color:var(--text);font-size:13px;
+  font-family:var(--mono);transition:border-color .2s,background .2s}
+.cl:hover{border-color:var(--accent);background:rgba(0,229,160,.05)}
+.cl-ic{font-size:1.1rem;min-width:20px;text-align:center}
+.avail{font-family:var(--mono);font-size:12px;color:var(--accent);
+  letter-spacing:.08em;margin-top:.75rem}
 
-  /* CERTIFICATIONS */
-  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-  .cert-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 6px; padding: 1.5rem;
-    display: flex; flex-direction: column; gap: 0.5rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .cert-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-2px); }
-  .cert-icon { font-size: 1.5rem; }
-  .cert-name { font-size: 14px; font-weight: 700; line-height: 1.4; }
-  .cert-source { font-family: var(--font-mono); font-size: 11px; color: var(--accent); }
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:1.75rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:11px;color:var(--muted)}
 
-  /* TOOLS MARQUEE */
-  .tools-marquee { overflow: hidden; position: relative; padding: 2rem 0; }
-  .tools-marquee::before, .tools-marquee::after {
-    content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
-  }
-  .tools-marquee::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
-  .tools-marquee::after { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
-  .tools-track { display: flex; gap: 1rem; animation: marquee 25s linear infinite; width: max-content; }
-  .tool-pill {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--card); border: 1px solid var(--border);
-    padding: 0.6rem 1.2rem; border-radius: 100px; white-space: nowrap;
-    font-size: 13px; font-weight: 500; font-family: var(--font-mono);
-  }
-  .tool-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* CONTACT */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .contact-big { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
-  .contact-big span { color: var(--accent); }
-  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-  .contact-link {
-    display: flex; align-items: center; gap: 1rem;
-    background: var(--card); border: 1px solid var(--border);
-    padding: 1rem 1.5rem; border-radius: 6px;
-    text-decoration: none; color: var(--text);
-    font-size: 14px; font-family: var(--font-mono);
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .contact-link:hover { border-color: var(--accent); background: rgba(0,229,160,0.05); }
-  .contact-link-icon { font-size: 1.2rem; }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 4rem;
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
-  }
-
-  .divider { border: none; border-top: 1px solid var(--border); margin: 0 4rem; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 4rem 1.5rem; }
-    .hero { padding: 6rem 1.5rem 3rem; }
-    .hero-stats { gap: 2rem; }
-    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-    .divider { margin: 0 1.5rem; }
-  }
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  section{padding:3.5rem 1.5rem}.hero{padding:6rem 1.5rem 3rem}
+  .stats{gap:1.5rem}.contact-grid{grid-template-columns:1fr;gap:2rem}
+  footer{padding:1.5rem;flex-direction:column;gap:.4rem;text-align:center}
+  hr.div{margin:0 1.5rem}
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Sriram Kothapalli · QA</div>
+  <div class="logo">Sriram Kothapalli · QA</div>
   <div class="nav-links">
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#achievements">Achievements</a>
     <a href="#certifications">Certifications</a>
     <a href="#contact">Contact</a>
-    <span class="nav-badge">Immediate Joiner</span>
+    <span class="badge">Immediate Joiner</span>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <p class="hero-label">QA Automation Engineer · SDET · 4+ Years Experience · Immediate Joiner</p>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+  <p class="hero-label">QA Automation Engineer · SDET · 4+ Years · Immediate Joiner</p>
   <h1 class="hero-name">Sriram<br><span>Kothapalli</span></h1>
-  <p class="hero-title">Selenium (Java) · Playwright · Cypress · JMeter · Postman · CI/CD<br>Pharma &amp; Life Sciences domain — 3 enterprise IoT &amp; SaaS products for US-based clients.</p>
-  <div class="hero-stats">
-    <div class="stat-item">
-      <div class="stat-num">2000+</div>
-      <div class="stat-label">Test cases automated</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">45%</div>
-      <div class="stat-label">Manual effort reduced</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">3 hrs</div>
-      <div class="stat-label">Regression (was 2 days)</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">30+</div>
-      <div class="stat-label">Critical bugs caught</div>
-    </div>
+  <p class="hero-sub">
+    <strong>Selenium (Java) · Playwright · Cypress · JMeter · Postman · CI/CD</strong><br>
+    Building scalable automation frameworks for IoT &amp; SaaS products — 3 enterprise projects for US pharma clients.
+  </p>
+  <div class="stats">
+    <div><div class="stat-n">2000+</div><div class="stat-l">Test cases automated</div></div>
+    <div><div class="stat-n">45%</div><div class="stat-l">Manual effort reduced</div></div>
+    <div><div class="stat-n">3 hrs</div><div class="stat-l">Regression (was 2 days)</div></div>
+    <div><div class="stat-n">30+</div><div class="stat-l">Critical bugs caught pre-release</div></div>
   </div>
-  <div class="hero-cta">
-    <a href="mailto:sriramkothapalli@outlook.in" class="btn-primary">↗ Hire me</a>
-    <a href="https://linkedin.com/in/sriramkothapalli" target="_blank" class="btn-outline">LinkedIn Profile</a>
-    <a href="https://github.com/sriram-kothapalli" target="_blank" class="btn-outline">GitHub</a>
+  <div class="cta">
+    <a href="mailto:sriramkothapalli@outlook.in" class="btn-p">↗ Hire Me</a>
+    <a href="https://linkedin.com/in/sriramkothapalli" target="_blank" class="btn-o">LinkedIn</a>
+    <a href="https://github.com/sriram-kothapalli" target="_blank" class="btn-o">GitHub</a>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div"/>
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-header">
-    <div class="section-label">01 — Expertise</div>
-    <h2 class="section-title">What I do</h2>
+  <div class="sh">
+    <div class="sl">01 — Expertise</div>
+    <h2 class="st">What I do</h2>
   </div>
   <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-icon">⚡</div>
-      <div class="skill-title">Test Automation</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Building scalable automation frameworks using Selenium (Java) with TestNG, Maven, Page Factory and Extent Reports, plus Playwright and Cypress with POM and Hybrid patterns.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">Selenium WebDriver</span>
-        <span class="skill-tag">Java</span>
-        <span class="skill-tag">TestNG</span>
-        <span class="skill-tag">Maven</span>
-        <span class="skill-tag">Playwright</span>
-        <span class="skill-tag">Cypress</span>
-        <span class="skill-tag">POM</span>
+    <div class="sk-card">
+      <div class="sk-icon">⚡</div>
+      <div class="sk-title">Test Automation</div>
+      <p class="sk-desc">Building scalable frameworks using Selenium WebDriver (Java) with TestNG, Maven, Page Factory, Extent Reports &amp; Retry Analyzer. Playwright and Cypress with Hybrid POM for parallel cross-browser execution.</p>
+      <div class="tags">
+        <span class="tag">Selenium WebDriver</span><span class="tag">Java</span>
+        <span class="tag">TestNG</span><span class="tag">Maven</span>
+        <span class="tag">Playwright</span><span class="tag">Cypress</span><span class="tag">POM</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">🔬</div>
-      <div class="skill-title">Manual &amp; Functional Testing</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;">End-to-end manual testing including functional, regression, smoke, sanity, integration, UAT and exploratory testing across pharma and IoT platforms.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">Black-box</span>
-        <span class="skill-tag">Exploratory</span>
-        <span class="skill-tag">Risk-based</span>
-        <span class="skill-tag">UAT</span>
-        <span class="skill-tag">RTM</span>
+    <div class="sk-card">
+      <div class="sk-icon">🔬</div>
+      <div class="sk-title">Manual &amp; Functional Testing</div>
+      <p class="sk-desc">End-to-end manual testing — functional, regression, smoke, sanity, integration, UAT, exploratory, and risk-based testing across pharma and IoT platforms. RTM ownership.</p>
+      <div class="tags">
+        <span class="tag">Black-box</span><span class="tag">Exploratory</span>
+        <span class="tag">Risk-based</span><span class="tag">UAT</span><span class="tag">RTM</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">📈</div>
-      <div class="skill-title">Performance Testing</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Load, stress and spike testing with JMeter. Monitoring system health and identifying bottlenecks via Grafana dashboards.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">JMeter</span>
-        <span class="skill-tag">Grafana</span>
-        <span class="skill-tag">Load Testing</span>
-        <span class="skill-tag">Stress Testing</span>
-        <span class="skill-tag">Spike Testing</span>
+    <div class="sk-card">
+      <div class="sk-icon">📈</div>
+      <div class="sk-title">Performance Testing</div>
+      <p class="sk-desc">Load, stress and spike testing using JMeter. System health monitoring and bottleneck identification via Grafana dashboards for IoT and SaaS platforms.</p>
+      <div class="tags">
+        <span class="tag">JMeter</span><span class="tag">Grafana</span>
+        <span class="tag">Load Testing</span><span class="tag">Stress Testing</span><span class="tag">Spike Testing</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">🌐</div>
-      <div class="skill-title">API Testing</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;">REST API validation — payloads, headers, status codes, authentication flows, pagination logic and error response handling across 15+ endpoints.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">Postman</span>
-        <span class="skill-tag">REST API</span>
-        <span class="skill-tag">JSON</span>
-        <span class="skill-tag">Auth flows</span>
+    <div class="sk-card">
+      <div class="sk-icon">🌐</div>
+      <div class="sk-title">API Testing</div>
+      <p class="sk-desc">REST API validation — payloads, headers, status codes, authentication flows, pagination logic and error handling. Validated 15+ endpoints across projects.</p>
+      <div class="tags">
+        <span class="tag">Postman</span><span class="tag">REST API</span>
+        <span class="tag">JSON</span><span class="tag">Auth flows</span><span class="tag">Status codes</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">🔌</div>
-      <div class="skill-title">IoT &amp; MQTT Testing</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Device provisioning, telemetry validation, edge-to-cloud data pipeline testing, QoS levels and real-time data flow verification via MQTT protocol.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">MQTT</span>
-        <span class="skill-tag">IoT</span>
-        <span class="skill-tag">Telemetry</span>
-        <span class="skill-tag">Edge Gateway</span>
-        <span class="skill-tag">QoS</span>
+    <div class="sk-card">
+      <div class="sk-icon">🔌</div>
+      <div class="sk-title">IoT &amp; MQTT Testing</div>
+      <p class="sk-desc">Device provisioning, telemetry validation, edge-to-cloud pipeline testing, QoS level verification, and real-time data flow via MQTT for pharma lab instruments.</p>
+      <div class="tags">
+        <span class="tag">MQTT</span><span class="tag">IoT</span>
+        <span class="tag">Telemetry</span><span class="tag">Edge Gateway</span><span class="tag">QoS</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-icon">🗄️</div>
-      <div class="skill-title">Database &amp; CI/CD</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Backend validation using PostgreSQL queries. Automation integrated with Jenkins pipelines for continuous testing with nightly regression and PR-triggered runs.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">PostgreSQL</span>
-        <span class="skill-tag">SQL</span>
-        <span class="skill-tag">Jenkins</span>
-        <span class="skill-tag">Git</span>
-        <span class="skill-tag">CI/CD</span>
+    <div class="sk-card">
+      <div class="sk-icon">🗄️</div>
+      <div class="sk-title">Database &amp; CI/CD</div>
+      <p class="sk-desc">Backend validation using PostgreSQL queries. Jenkins pipelines with PR-triggered smoke runs and nightly regression execution for continuous quality coverage.</p>
+      <div class="tags">
+        <span class="tag">PostgreSQL</span><span class="tag">SQL</span>
+        <span class="tag">Jenkins</span><span class="tag">Git</span><span class="tag">CI/CD</span>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div"/>
 
 <!-- TOOLS MARQUEE -->
-<section style="padding: 3rem 0;">
-  <div class="tools-marquee">
-    <div class="tools-track">
-      <div class="tool-pill"><span class="tool-dot"></span>Selenium WebDriver</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Java</div>
-      <div class="tool-pill"><span class="tool-dot"></span>TestNG</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Maven</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Playwright</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Cypress</div>
-      <div class="tool-pill"><span class="tool-dot"></span>JMeter</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Grafana</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Postman</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Jenkins</div>
-      <div class="tool-pill"><span class="tool-dot"></span>JIRA</div>
-      <div class="tool-pill"><span class="tool-dot"></span>PostgreSQL</div>
-      <div class="tool-pill"><span class="tool-dot"></span>MQTT</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Git / GitHub</div>
-      <div class="tool-pill"><span class="tool-dot"></span>JavaScript</div>
-      <div class="tool-pill"><span class="tool-dot"></span>TypeScript</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Extent Reports</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Page Factory</div>
-      <!-- duplicate for seamless loop -->
-      <div class="tool-pill"><span class="tool-dot"></span>Selenium WebDriver</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Java</div>
-      <div class="tool-pill"><span class="tool-dot"></span>TestNG</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Maven</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Playwright</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Cypress</div>
-      <div class="tool-pill"><span class="tool-dot"></span>JMeter</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Grafana</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Postman</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Jenkins</div>
-      <div class="tool-pill"><span class="tool-dot"></span>JIRA</div>
-      <div class="tool-pill"><span class="tool-dot"></span>PostgreSQL</div>
-      <div class="tool-pill"><span class="tool-dot"></span>MQTT</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Git / GitHub</div>
-      <div class="tool-pill"><span class="tool-dot"></span>JavaScript</div>
-      <div class="tool-pill"><span class="tool-dot"></span>TypeScript</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Extent Reports</div>
-      <div class="tool-pill"><span class="tool-dot"></span>Page Factory</div>
+<section style="padding:2.5rem 0">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="pill"><span class="dot"></span>Selenium WebDriver</div>
+      <div class="pill"><span class="dot"></span>Java</div>
+      <div class="pill"><span class="dot"></span>TestNG</div>
+      <div class="pill"><span class="dot"></span>Maven</div>
+      <div class="pill"><span class="dot"></span>Playwright</div>
+      <div class="pill"><span class="dot"></span>Cypress</div>
+      <div class="pill"><span class="dot"></span>JavaScript</div>
+      <div class="pill"><span class="dot"></span>TypeScript</div>
+      <div class="pill"><span class="dot"></span>JMeter</div>
+      <div class="pill"><span class="dot"></span>Grafana</div>
+      <div class="pill"><span class="dot"></span>Postman</div>
+      <div class="pill"><span class="dot"></span>Jenkins</div>
+      <div class="pill"><span class="dot"></span>JIRA</div>
+      <div class="pill"><span class="dot"></span>PostgreSQL</div>
+      <div class="pill"><span class="dot"></span>MQTT</div>
+      <div class="pill"><span class="dot"></span>Git / GitHub</div>
+      <div class="pill"><span class="dot"></span>Extent Reports</div>
+      <div class="pill"><span class="dot"></span>Page Factory</div>
+      <div class="pill"><span class="dot"></span>Selenium WebDriver</div>
+      <div class="pill"><span class="dot"></span>Java</div>
+      <div class="pill"><span class="dot"></span>TestNG</div>
+      <div class="pill"><span class="dot"></span>Maven</div>
+      <div class="pill"><span class="dot"></span>Playwright</div>
+      <div class="pill"><span class="dot"></span>Cypress</div>
+      <div class="pill"><span class="dot"></span>JavaScript</div>
+      <div class="pill"><span class="dot"></span>TypeScript</div>
+      <div class="pill"><span class="dot"></span>JMeter</div>
+      <div class="pill"><span class="dot"></span>Grafana</div>
+      <div class="pill"><span class="dot"></span>Postman</div>
+      <div class="pill"><span class="dot"></span>Jenkins</div>
+      <div class="pill"><span class="dot"></span>JIRA</div>
+      <div class="pill"><span class="dot"></span>PostgreSQL</div>
+      <div class="pill"><span class="dot"></span>MQTT</div>
+      <div class="pill"><span class="dot"></span>Git / GitHub</div>
+      <div class="pill"><span class="dot"></span>Extent Reports</div>
+      <div class="pill"><span class="dot"></span>Page Factory</div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div"/>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-header">
-    <div class="section-label">02 — Work</div>
-    <h2 class="section-title">Projects</h2>
+  <div class="sh">
+    <div class="sl">02 — Work</div>
+    <h2 class="st">Projects</h2>
   </div>
-  <p style="color:var(--muted);font-size:14px;margin-bottom:2rem;font-family:var(--font-mono);">Buildbot Technologies Pvt. Ltd., Vijayawada · Jan 2022 – Apr 2026</p>
-  <div class="projects-grid">
+  <p style="color:var(--muted);font-size:13px;margin-bottom:2rem;font-family:var(--mono)">
+    Buildbot Technologies Pvt. Ltd., Vijayawada &nbsp;·&nbsp; Jan 2022 – Apr 2026 &nbsp;·&nbsp; QA Automation Engineer / SDET
+  </p>
+  <div class="proj-grid">
 
-    <div class="project-card">
-      <div class="project-client">Merck, USA</div>
-      <div class="project-name">Connected Plant</div>
-      <div class="project-desc">IoT platform to manage laboratory instruments, equipment, and analytical data in pharma environments. Full QA coverage — manual, Selenium automation, Playwright, performance, API and IoT layers.</div>
-      <div class="project-metrics">
-        <div class="metric-box"><div class="metric-val">1200+</div><div class="metric-desc">test cases written & automated</div></div>
-        <div class="metric-box"><div class="metric-val">3 hrs</div><div class="metric-desc">regression cycle (from 2 days)</div></div>
-        <div class="metric-box"><div class="metric-val">30+</div><div class="metric-desc">critical bugs caught pre-release</div></div>
-        <div class="metric-box"><div class="metric-val">100%</div><div class="metric-desc">RTM coverage maintained</div></div>
+    <div class="proj-card">
+      <div class="pc">Merck, USA</div>
+      <div class="pn">Connected Plant</div>
+      <div class="pd">IoT platform to manage laboratory instruments, equipment, and analytical data in pharma environments. Sole QA engineer — owned test strategy, release sign-off, and direct client communication.</div>
+      <div class="pm">
+        <div class="mb"><div class="mv">1200+</div><div class="md">test cases written &amp; automated</div></div>
+        <div class="mb"><div class="mv">3 hrs</div><div class="md">regression cycle (from 2 days)</div></div>
+        <div class="mb"><div class="mv">30+</div><div class="md">critical bugs caught pre-release</div></div>
+        <div class="mb"><div class="mv">100%</div><div class="md">RTM coverage maintained</div></div>
       </div>
-      <div class="project-stack">
-        <span class="stack-tag">Selenium Java</span>
-        <span class="stack-tag">TestNG</span>
-        <span class="stack-tag">Playwright</span>
-        <span class="stack-tag">Cypress</span>
-        <span class="stack-tag">JMeter</span>
-        <span class="stack-tag">Postman</span>
-        <span class="stack-tag">MQTT</span>
-        <span class="stack-tag">Jenkins</span>
-        <span class="stack-tag">PostgreSQL</span>
+      <div class="stack">
+        <span class="stag">Selenium Java</span><span class="stag">TestNG</span><span class="stag">Maven</span>
+        <span class="stag">Playwright</span><span class="stag">Cypress</span><span class="stag">JMeter</span>
+        <span class="stag">Postman</span><span class="stag">MQTT</span><span class="stag">Jenkins</span><span class="stag">PostgreSQL</span>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-client">Phizzle, USA</div>
-      <div class="project-name">Digital Air Systems</div>
-      <div class="project-desc">Cloud-based IoT SaaS platform to digitize and automate scientific workflows with real-time device data. Covered dashboard workflows, device management, API contracts, and MQTT telemetry validation.</div>
-      <div class="project-metrics">
-        <div class="metric-box"><div class="metric-val">900+</div><div class="metric-desc">manual + automated cases</div></div>
-        <div class="metric-box"><div class="metric-val">15+</div><div class="metric-desc">API endpoints validated</div></div>
-        <div class="metric-box"><div class="metric-val">CI/CD</div><div class="metric-desc">PR-triggered Jenkins runs</div></div>
-        <div class="metric-box"><div class="metric-val">Agile</div><div class="metric-desc">sprint-based delivery</div></div>
+    <div class="proj-card">
+      <div class="pc">Phizzle, USA</div>
+      <div class="pn">Digital Air Systems</div>
+      <div class="pd">Cloud-based IoT SaaS platform to digitize and automate scientific workflows with real-time device data. Coordinated directly with US client on UAT, defect triage, and sprint quality reporting.</div>
+      <div class="pm">
+        <div class="mb"><div class="mv">900+</div><div class="md">manual + automated cases</div></div>
+        <div class="mb"><div class="mv">15+</div><div class="md">API endpoints validated</div></div>
+        <div class="mb"><div class="mv">CI/CD</div><div class="md">PR-triggered Jenkins runs</div></div>
+        <div class="mb"><div class="mv">Agile</div><div class="md">sprint-based delivery</div></div>
       </div>
-      <div class="project-stack">
-        <span class="stack-tag">Playwright</span>
-        <span class="stack-tag">Postman</span>
-        <span class="stack-tag">JMeter</span>
-        <span class="stack-tag">Grafana</span>
-        <span class="stack-tag">MQTT</span>
-        <span class="stack-tag">JIRA</span>
-        <span class="stack-tag">PostgreSQL</span>
+      <div class="stack">
+        <span class="stag">Playwright</span><span class="stag">Postman</span><span class="stag">JMeter</span>
+        <span class="stag">Grafana</span><span class="stag">MQTT</span><span class="stag">JIRA</span><span class="stag">PostgreSQL</span>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-client">Phizzle, USA</div>
-      <div class="project-name">Edge Manager</div>
-      <div class="project-desc">Web application for provisioning and managing IoT edge gateway devices and data communication. Validated MQTT edge-to-cloud pipeline, QoS levels, device config sync, and nightly regression runs.</div>
-      <div class="project-metrics">
-        <div class="metric-box"><div class="metric-val">MQTT</div><div class="metric-desc">QoS + telemetry validation</div></div>
-        <div class="metric-box"><div class="metric-val">Multi-env</div><div class="metric-desc">parallel test execution</div></div>
-        <div class="metric-box"><div class="metric-val">80+</div><div class="metric-desc">defects raised & tracked</div></div>
-        <div class="metric-box"><div class="metric-val">Nightly</div><div class="metric-desc">Jenkins regression runs</div></div>
+    <div class="proj-card">
+      <div class="pc">Phizzle, USA</div>
+      <div class="pn">Edge Manager</div>
+      <div class="pd">Web application for provisioning and managing IoT edge gateway devices. Owned go/no-go sign-off, wrote test strategy docs, and presented quality metrics to stakeholders before each release.</div>
+      <div class="pm">
+        <div class="mb"><div class="mv">MQTT</div><div class="md">QoS + edge-to-cloud pipeline</div></div>
+        <div class="mb"><div class="mv">80+</div><div class="md">defects raised &amp; tracked</div></div>
+        <div class="mb"><div class="mv">Nightly</div><div class="md">Jenkins regression runs</div></div>
+        <div class="mb"><div class="mv">Multi-env</div><div class="md">parallel test execution</div></div>
       </div>
-      <div class="project-stack">
-        <span class="stack-tag">Playwright</span>
-        <span class="stack-tag">PostgreSQL</span>
-        <span class="stack-tag">Jenkins</span>
-        <span class="stack-tag">MQTT</span>
-        <span class="stack-tag">JMeter</span>
-        <span class="stack-tag">Grafana</span>
-        <span class="stack-tag">JIRA</span>
+      <div class="stack">
+        <span class="stag">Playwright</span><span class="stag">PostgreSQL</span><span class="stag">Jenkins</span>
+        <span class="stag">MQTT</span><span class="stag">JMeter</span><span class="stag">Grafana</span><span class="stag">JIRA</span>
       </div>
     </div>
 
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div"/>
 
 <!-- ACHIEVEMENTS -->
 <section id="achievements">
-  <div class="section-header">
-    <div class="section-label">03 — Impact</div>
-    <h2 class="section-title">Key achievements</h2>
+  <div class="sh">
+    <div class="sl">03 — Impact</div>
+    <h2 class="st">Key Achievements</h2>
   </div>
-  <div class="achievements-list">
-    <div class="achievement-item">
-      <div class="ach-num">01</div>
-      <div class="ach-text">Automated <span>2,000+ test cases</span> across 3 projects using Selenium (Java), Playwright and Cypress — reducing manual testing effort by <span>45%</span>.</div>
+  <div class="ach-list">
+    <div class="ach-item">
+      <div class="ach-n">01</div>
+      <div class="ach-t">Automated <span>2,000+ test cases</span> across 3 projects using <span>Selenium (Java), Playwright &amp; Cypress</span> — reducing manual effort by <span>45%</span>.</div>
     </div>
-    <div class="achievement-item">
-      <div class="ach-num">02</div>
-      <div class="ach-text">Reduced regression execution time from <span>2 days to 3 hours</span> by integrating the automation suite with a Jenkins CI/CD pipeline.</div>
+    <div class="ach-item">
+      <div class="ach-n">02</div>
+      <div class="ach-t">Reduced regression execution time from <span>2 days to 3 hours</span> by integrating the automation suite with a Jenkins CI/CD pipeline.</div>
     </div>
-    <div class="achievement-item">
-      <div class="ach-num">03</div>
-      <div class="ach-text">Identified and reported <span>30+ critical defects</span> through risk-based and exploratory testing before production release.</div>
+    <div class="ach-item">
+      <div class="ach-n">03</div>
+      <div class="ach-t">Identified and reported <span>30+ critical defects</span> through risk-based and exploratory testing before each production release.</div>
     </div>
-    <div class="achievement-item">
-      <div class="ach-num">04</div>
-      <div class="ach-text">Built reusable automation framework with <span>base classes, Extent Reports, TestNG XML</span> and parallel execution support for scalable test runs.</div>
+    <div class="ach-item">
+      <div class="ach-n">04</div>
+      <div class="ach-t">Built reusable automation framework with <span>base classes, Extent Reports, TestNG XML, Retry Analyzer</span> and parallel execution support.</div>
     </div>
-    <div class="achievement-item">
-      <div class="ach-num">05</div>
-      <div class="ach-text">Validated <span>MQTT-based IoT device communication</span> including QoS levels, telemetry accuracy, and edge-to-cloud data pipelines.</div>
+    <div class="ach-item">
+      <div class="ach-n">05</div>
+      <div class="ach-t">Validated <span>MQTT IoT device communication</span> — QoS levels, telemetry accuracy, and edge-to-cloud pipelines for pharma lab platforms.</div>
     </div>
-    <div class="achievement-item">
-      <div class="ach-num">06</div>
-      <div class="ach-text">Maintained consistent functional test coverage across all sprint releases for <span>US-based pharma clients</span> over 4+ years of delivery.</div>
+    <div class="ach-item">
+      <div class="ach-n">06</div>
+      <div class="ach-t">Acted as <span>sole QA engineer</span> on Connected Plant — owned test strategy, release sign-off, and direct <span>Merck (US) client communication</span>.</div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div"/>
 
 <!-- CERTIFICATIONS -->
 <section id="certifications">
-  <div class="section-header">
-    <div class="section-label">04 — Learning</div>
-    <h2 class="section-title">Certifications</h2>
+  <div class="sh">
+    <div class="sl">04 — Learning</div>
+    <h2 class="st">Certifications</h2>
   </div>
-  <div class="certs-grid">
+  <div class="cert-grid">
     <div class="cert-card">
       <div class="cert-icon">☕</div>
       <div class="cert-name">Selenium WebDriver with Java</div>
-      <div class="cert-source">Udemy · Online</div>
+      <div class="cert-src">Udemy · Online</div>
     </div>
     <div class="cert-card">
       <div class="cert-icon">🎭</div>
       <div class="cert-name">Playwright Automation Testing</div>
-      <div class="cert-source">Udemy · Online</div>
+      <div class="cert-src">Udemy · Online</div>
     </div>
     <div class="cert-card">
       <div class="cert-icon">🌲</div>
       <div class="cert-name">Cypress Web Automation Testing</div>
-      <div class="cert-source">Udemy · Online</div>
+      <div class="cert-src">Udemy · Online</div>
     </div>
     <div class="cert-card">
       <div class="cert-icon">📊</div>
       <div class="cert-name">JMeter Performance Testing</div>
-      <div class="cert-source">Udemy · Online</div>
+      <div class="cert-src">Udemy · Online</div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div"/>
 
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-grid">
-    <div class="contact-info">
-      <div class="section-label">05 — Connect</div>
-      <h2 class="contact-big">Let's work<br><span>together</span></h2>
-      <p style="color:var(--muted);font-size:14px;line-height:1.7;max-width:420px;margin-bottom:1rem;">Open to QA Automation / SDET roles. Based in Vijayawada, Andhra Pradesh — available for remote and hybrid opportunities.</p>
-      <p style="font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:0.08em;">✦ IMMEDIATE JOINER — Available from Day 1</p>
+    <div>
+      <div class="sl">05 — Connect</div>
+      <h2 class="cb">Let's work<br><span>together</span></h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.75;max-width:400px">
+        Open to QA Automation Engineer / SDET roles — remote, hybrid, or on-site. Based in Vijayawada, Andhra Pradesh.
+      </p>
+      <p class="avail">✦ IMMEDIATE JOINER — Available from Day 1</p>
     </div>
     <div class="contact-links">
-      <a href="mailto:sriramkothapalli@outlook.in" class="contact-link">
-        <span class="contact-link-icon">✉</span>
-        sriramkothapalli@outlook.in
+      <a href="mailto:sriramkothapalli@outlook.in" class="cl">
+        <span class="cl-ic">✉</span>sriramkothapalli@outlook.in
       </a>
-      <a href="tel:+919640405249" class="contact-link">
-        <span class="contact-link-icon">☏</span>
-        +91 96404 05249
+      <a href="tel:+919640405249" class="cl">
+        <span class="cl-ic">☏</span>+91 96404 05249
       </a>
-      <a href="https://linkedin.com/in/sriramkothapalli" target="_blank" class="contact-link">
-        <span class="contact-link-icon">in</span>
-        linkedin.com/in/sriramkothapalli
+      <a href="https://linkedin.com/in/sriramkothapalli" target="_blank" class="cl">
+        <span class="cl-ic">in</span>linkedin.com/in/sriramkothapalli
       </a>
-      <a href="https://github.com/sriram-kothapalli" target="_blank" class="contact-link">
-        <span class="contact-link-icon">⌥</span>
-        github.com/sriram-kothapalli
+      <a href="https://github.com/sriram-kothapalli" target="_blank" class="cl">
+        <span class="cl-ic">⌥</span>github.com/sriram-kothapalli
       </a>
-      <a href="https://sriram-kothapalli.github.io/qa-portfolio/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">◈</span>
-        sriram-kothapalli.github.io/qa-portfolio
+      <a href="https://sriram-kothapalli.github.io/qa-portfolio/" target="_blank" class="cl">
+        <span class="cl-ic">◈</span>sriram-kothapalli.github.io/qa-portfolio
       </a>
     </div>
   </div>
